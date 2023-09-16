@@ -1,0 +1,32 @@
+name: Python code formatting check
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  format_check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install isort black
+
+    - name: Verifying imports
+      run: |
+        python -m isort --profile black -l 120 --check --diff .
+
+    - name: Verifying code
+      run: |
+        python -m black -l 120 --check --diff .
