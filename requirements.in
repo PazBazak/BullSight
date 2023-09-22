@@ -3,3 +3,4 @@ sqlalchemy
 requests
 pandas
 alembic
+sec-api
